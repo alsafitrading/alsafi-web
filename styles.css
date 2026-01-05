@@ -36,6 +36,28 @@ body {
     color: var(--text-dark);
     background-color: var(--bg-dark);
     overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23a855f7" stroke="%23ffffff" stroke-width="0.5" opacity="0.9"/></svg>') 10 10, auto;
+}
+
+a,
+button,
+.btn,
+.btn-show-more,
+.gallery-item,
+.product-card,
+.client-logo,
+.nav-link,
+.whatsapp-button,
+.gallery-lightbox-nav,
+.gallery-back-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23a855f7" stroke="%23ffffff" stroke-width="1"/></svg>') 12 12, pointer;
+}
+
+input,
+textarea,
+.form-group input,
+.form-group textarea {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="%23a855f7" opacity="0.8"/></svg>') 12 12, text;
 }
 
 img {

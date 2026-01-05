@@ -233,8 +233,8 @@
         // Product images mapping
         const productImages = {
             1: ['images/p1.jpeg'],
-            2: ['images/p2.jpeg'],
-            3: Array.from({length: 25}, (_, i) => `images/Weiging Meachine/img${i + 1}.jpg`),
+            2: Array.from({ length: 8 }, (_, i) => `images/Software ssolution/${i + 7}.png`), // Software Solutions - images 7.png to 14.png
+            3: Array.from({ length: 25 }, (_, i) => `images/Weiging Meachine/img${i + 1}.jpg`),
             4: ['images/p4.png'],
             5: ['images/p5.jpeg'],
             6: ['images/p6.jpeg'],
@@ -244,7 +244,7 @@
 
         const productTitles = {
             1: 'Retail Weighing Scales',
-            2: 'POS Systems',
+            2: 'Software Solutions',
             3: 'Industrial Scales',
             4: 'Checkweighers',
             5: 'Filling Systems',
@@ -317,13 +317,13 @@
         lightboxClose.addEventListener('click', closeLightbox);
         lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
         lightboxNext.addEventListener('click', () => navigateLightbox(1));
-        
-        lightbox.addEventListener('click', function(e) {
+
+        lightbox.addEventListener('click', function (e) {
             if (e.target === lightbox) closeLightbox();
         });
 
         // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (lightbox.classList.contains('active')) {
                 if (e.key === 'Escape') {
                     closeLightbox();
@@ -368,4 +368,3 @@
 </body>
 
 </html>
-
