@@ -465,3 +465,158 @@ script.type = 'application/ld+json';
 script.textContent = JSON.stringify(structuredData);
 document.head.appendChild(script);
 
+// ============================================
+// Product Gallery Modal
+// ============================================
+const productImages = {
+    1: ['images/p1.jpeg'], // Retail Weighing Scales
+    2: ['images/p2.jpeg'], // POS Systems
+    3: ['images/p3.png'], // Industrial Scales
+    4: ['images/p4.png'], // Checkweighers
+    5: ['images/p5.jpeg'], // Filling Systems
+    6: ['images/p6.jpeg'], // Shrink Wrapping Machines
+    7: ['images/p7.jpeg'], // Stretch Wrapping Machines
+    8: ['images/p8.jpeg']  // Taping Machines
+};
+
+const galleryModal = document.getElementById('galleryModal');
+const galleryClose = document.getElementById('galleryClose');
+const galleryTitle = document.getElementById('galleryTitle');
+const galleryContainer = document.getElementById('galleryContainer');
+const galleryCounter = document.getElementById('galleryCounter');
+let currentProductId = null;
+let currentImageIndex = 0;
+
+// Open gallery modal
+document.querySelectorAll('.btn-show-more').forEach(button => {
+    button.addEventListener('click', function() {
+        const productId = parseInt(this.getAttribute('data-product'));
+        const productTitle = this.getAttribute('data-title');
+        openGallery(productId, productTitle);
+    });
+});
+
+function openGallery(productId, title) {
+    currentProductId = productId;
+    currentImageIndex = 0;
+    galleryTitle.textContent = title;
+    galleryContainer.innerHTML = '';
+    
+    const images = productImages[productId] || [];
+    
+    if (images.length === 0) {
+        galleryContainer.innerHTML = '<p style="color: white; text-align: center; padding: 2rem;">No images available for this product.</p>';
+    } else {
+        images.forEach((imageSrc, index) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.innerHTML = `<img src="${imageSrc}" alt="${title} - Image ${index + 1}" loading="lazy">`;
+            galleryItem.addEventListener('click', () => openLightbox(index));
+            galleryContainer.appendChild(galleryItem);
+        });
+    }
+    
+    updateGalleryCounter();
+    galleryModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function updateGalleryCounter() {
+    const images = productImages[currentProductId] || [];
+    galleryCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+}
+
+// Close gallery modal
+galleryClose.addEventListener('click', closeGallery);
+galleryModal.addEventListener('click', function(e) {
+    if (e.target === this || e.target.classList.contains('gallery-modal-overlay')) {
+        closeGallery();
+    }
+});
+
+function closeGallery() {
+    galleryModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (galleryModal.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            closeGallery();
+        } else if (e.key === 'ArrowLeft') {
+            navigateGallery(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateGallery(1);
+        }
+    }
+});
+
+function navigateGallery(direction) {
+    const images = productImages[currentProductId] || [];
+    if (images.length === 0) return;
+    
+    currentImageIndex += direction;
+    if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+    if (currentImageIndex >= images.length) currentImageIndex = 0;
+    
+    updateGalleryCounter();
+    // Scroll to current image
+    const items = galleryContainer.querySelectorAll('.gallery-item');
+    if (items[currentImageIndex]) {
+        items[currentImageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// Gallery navigation buttons
+const galleryPrev = document.getElementById('galleryPrev');
+const galleryNext = document.getElementById('galleryNext');
+
+if (galleryPrev) {
+    galleryPrev.addEventListener('click', () => navigateGallery(-1));
+}
+
+if (galleryNext) {
+    galleryNext.addEventListener('click', () => navigateGallery(1));
+}
+
+// Lightbox for full image view
+function openLightbox(index) {
+    const images = productImages[currentProductId] || [];
+    if (images.length === 0) return;
+    
+    currentImageIndex = index;
+    
+    // Create lightbox if it doesn't exist
+    let lightbox = document.getElementById('galleryLightbox');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'galleryLightbox';
+        lightbox.className = 'gallery-lightbox';
+        lightbox.innerHTML = `
+            <button class="gallery-lightbox-close" id="lightboxClose">&times;</button>
+            <img id="lightboxImage" src="" alt="Product image">
+        `;
+        document.body.appendChild(lightbox);
+        
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
+    
+    const lightboxImage = document.getElementById('lightboxImage');
+    lightboxImage.src = images[index];
+    lightboxImage.alt = `${galleryTitle.textContent} - Image ${index + 1}`;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('galleryLightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
