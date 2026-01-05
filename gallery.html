@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Gallery - AL SAFI GENERAL TRADING LLC">
+    <title>Product Gallery - AL SAFI GENERAL TRADING LLC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet">
+    </noscript>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        .gallery-page {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            padding: 2rem 0;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 6rem;
+        }
+
+        .gallery-header h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.98);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-lightbox.active {
+            display: flex;
+        }
+
+        .gallery-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .gallery-lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .gallery-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .gallery-lightbox-nav:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-lightbox-prev {
+            left: 2rem;
+        }
+
+        .gallery-lightbox-next {
+            right: 2rem;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 1rem;
+            z-index: 10001;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1 class="logo-text">AL SAFI GENERAL TRADING LLC</h1>
+                        <img src="images/alsafifull.png" alt="AL SAFI GENERAL TRADING LLC Logo" class="logo-image">
+                    </a>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                    <li><a href="index.html#products" class="nav-link">Products</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#clients" class="nav-link">Our Clients</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Page -->
+    <section class="gallery-page">
+        <div class="container">
+            <div class="gallery-header">
+                <a href="index.html#products" class="gallery-back-btn">
+                    <span>&#8249;</span> Back to Products
+                </a>
+                <h1 id="galleryPageTitle">Product Gallery</h1>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Images will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="gallery-lightbox" id="galleryLightbox">
+        <button class="gallery-lightbox-close" id="lightboxClose">&times;</button>
+        <button class="gallery-lightbox-nav gallery-lightbox-prev" id="lightboxPrev">&#8249;</button>
+        <img id="lightboxImage" src="" alt="Product image">
+        <button class="gallery-lightbox-nav gallery-lightbox-next" id="lightboxNext">&#8250;</button>
+        <div class="gallery-counter" id="lightboxCounter"></div>
+    </div>
+
+    <script>
+        // Product images mapping
+        const productImages = {
+            1: ['images/p1.jpeg'],
+            2: ['images/p2.jpeg'],
+            3: Array.from({length: 25}, (_, i) => `images/Weiging Meachine/img${i + 1}.jpg`),
+            4: ['images/p4.png'],
+            5: ['images/p5.jpeg'],
+            6: ['images/p6.jpeg'],
+            7: ['images/p7.jpeg'],
+            8: ['images/p8.jpeg']
+        };
+
+        const productTitles = {
+            1: 'Retail Weighing Scales',
+            2: 'POS Systems',
+            3: 'Industrial Scales',
+            4: 'Checkweighers',
+            5: 'Filling Systems',
+            6: 'Shrink Wrapping Machines',
+            7: 'Stretch Wrapping Machines',
+            8: 'Taping Machines'
+        };
+
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('product')) || 3;
+        const productTitle = decodeURIComponent(urlParams.get('title') || productTitles[productId] || 'Product Gallery');
+
+        // Set page title
+        document.getElementById('galleryPageTitle').textContent = productTitle;
+
+        // Get images for this product
+        const images = productImages[productId] || [];
+        const galleryGrid = document.getElementById('galleryGrid');
+        let currentImageIndex = 0;
+
+        // Display images
+        if (images.length === 0) {
+            galleryGrid.innerHTML = '<p style="color: white; text-align: center; padding: 2rem; grid-column: 1 / -1;">No images available for this product.</p>';
+        } else {
+            images.forEach((imageSrc, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `<img src="${imageSrc}" alt="${productTitle} - Image ${index + 1}" loading="lazy">`;
+                galleryItem.addEventListener('click', () => openLightbox(index));
+                galleryGrid.appendChild(galleryItem);
+            });
+        }
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('galleryLightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            if (images.length === 0) return;
+            lightboxImage.src = images[currentImageIndex];
+            lightboxImage.alt = `${productTitle} - Image ${currentImageIndex + 1}`;
+            lightboxCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+            if (currentImageIndex >= images.length) currentImageIndex = 0;
+            updateLightbox();
+        }
+
+        // Event listeners
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+        lightboxNext.addEventListener('click', () => navigateLightbox(1));
+        
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    navigateLightbox(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateLightbox(1);
+                }
+            }
+        });
+
+        // Mobile menu toggle (reuse from main site)
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                const spans = mobileMenuToggle.querySelectorAll('span');
+                if (navMenu.classList.contains('active')) {
+                    spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+                } else {
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+        }
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
