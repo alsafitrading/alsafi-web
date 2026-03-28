@@ -529,9 +529,13 @@ document.head.appendChild(script);
 // Open gallery page when "Show More" is clicked
 document.querySelectorAll('.btn-show-more').forEach(button => {
     button.addEventListener('click', function () {
-        const productId = parseInt(this.getAttribute('data-product'));
+        const productId = parseInt(this.getAttribute('data-product'), 10);
         const productTitle = encodeURIComponent(this.getAttribute('data-title'));
-        // Navigate to gallery.html with product ID and title
+        // Filling systems: rich product detail (static; later dynamic)
+        if (productId === 1) {
+            window.location.href = 'product-detail.html';
+            return;
+        }
         window.location.href = `gallery.html?product=${productId}&title=${productTitle}`;
     });
 });
