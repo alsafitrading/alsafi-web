@@ -123,15 +123,19 @@ ul {
 
 .nav-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 1rem 0;
+    gap: 1rem;
+    padding: 0.875rem 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    height: 80px;
+    margin-right: auto;
+    flex-shrink: 0;
+    height: auto;
+    min-height: 0;
 }
 
 .logo-text {
@@ -139,15 +143,16 @@ ul {
 }
 
 .logo-image {
-    max-height: 90px;
+    max-height: 124px;
     width: auto;
+    max-width: min(72vw, 480px);
     object-fit: contain;
     transition: max-height 0.3s ease;
     background-color: transparent;
 }
 
 .navbar.scrolled .logo-image {
-    max-height: 60px;
+    max-height: 80px;
 }
 
 .nav-menu {
@@ -804,6 +809,115 @@ section {
 }
 
 /* ============================================
+   Retail Software solutions (detail page)
+   ============================================ */
+.retail-software-page {
+    position: relative;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    overflow: hidden;
+}
+
+.retail-software-page::before {
+    content: '';
+    position: absolute;
+    top: -2rem;
+    left: -10%;
+    right: -10%;
+    bottom: 0;
+    background: radial-gradient(circle at 15% 30%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.retail-software-page .retail-software-lead,
+.retail-software-page .retail-software-grid {
+    position: relative;
+    z-index: 1;
+}
+
+.retail-software-lead {
+    max-width: 52rem;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.retail-software-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.retail-solution-card {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.retail-solution-card:hover {
+    border-color: rgba(14, 165, 233, 0.45);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
+}
+
+.retail-solution-image {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.08) 0%, transparent 65%);
+}
+
+.retail-solution-image img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+}
+
+.retail-solution-body {
+    padding: 1.5rem 1.5rem 1.75rem;
+    flex-grow: 1;
+}
+
+.retail-solution-body h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.retail-solution-body p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+    .retail-software-lead {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .retail-solution-image {
+        height: 170px;
+    }
+}
+
+/* ============================================
    Services Section
    ============================================ */
 .services {
@@ -1397,10 +1511,10 @@ section {
 
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: 88px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 88px);
         background: var(--bg-white);
         flex-direction: column;
         align-items: flex-start;
@@ -1429,7 +1543,12 @@ section {
     }
 
     .logo-image {
-        max-height: 40px;
+        max-height: 52px;
+        max-width: min(78vw, 320px);
+    }
+
+    .navbar.scrolled .logo-image {
+        max-height: 44px;
     }
 
     .hero-buttons {
@@ -1466,7 +1585,7 @@ section {
     }
 
     .product-detail-main {
-        padding-top: max(7rem, calc(2.25rem + 48px + env(safe-area-inset-top, 0px)));
+        padding-top: max(7.5rem, calc(2.25rem + 52px + env(safe-area-inset-top, 0px)));
     }
 
     .stats-grid {
@@ -1636,14 +1755,14 @@ img[loading="lazy"].loaded {
    ============================================ */
 .product-detail-body {
     background: var(--bg-dark);
-    scroll-padding-top: 6.5rem;
+    scroll-padding-top: 8.5rem;
 }
 
 .product-detail-main {
     position: relative;
     min-height: 100vh;
-    /* Clear fixed navbar: logo up to 90px + .nav-wrapper padding 2rem + breathing room */
-    padding-top: max(9.5rem, calc(2.5rem + 90px + env(safe-area-inset-top, 0px)));
+    /* Clear fixed navbar: logo up to 124px + .nav-wrapper padding + breathing room */
+    padding-top: max(11.5rem, calc(2.75rem + 124px + env(safe-area-inset-top, 0px)));
     padding-bottom: 4rem;
     overflow: hidden;
 }
@@ -2236,6 +2355,74 @@ img[loading="lazy"].loaded {
     max-width: 40rem;
 }
 
+.product-model-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin: 0 0 1.5rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.product-model-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.product-model-table th,
+.product-model-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.product-model-table th {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(148, 163, 184, 0.95);
+    background: rgba(2, 6, 23, 0.45);
+}
+
+.product-model-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.product-model-table td:first-child {
+    font-weight: 600;
+    color: rgba(248, 250, 252, 0.98);
+}
+
+.product-model-table tbody tr:hover td {
+    background: rgba(14, 165, 233, 0.06);
+}
+
+.product-detail-text-only {
+    grid-template-columns: 1fr;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-detail-text-only .product-detail-desc p {
+    margin-bottom: 0.75rem;
+}
+
+.product-detail-range-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin: 2rem 0 0.85rem;
+}
+
+.product-detail-sub + .product-detail-range-title {
+    margin-top: 0;
+}
+
 .product-detail-accessory {
     margin-top: 2rem;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
@@ -2316,6 +2503,10 @@ img[loading="lazy"].loaded {
     align-items: center;
     text-decoration: none;
     color: inherit;
+}
+
+.logo a .logo-image {
+    display: block;
 }
 
 @media (max-width: 900px) {

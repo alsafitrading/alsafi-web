@@ -536,6 +536,18 @@ document.querySelectorAll('.btn-show-more').forEach(button => {
             window.location.href = 'category-filling-systems.html';
             return;
         }
+        if (productId === 2) {
+            window.location.href = 'category-industrial-scales.html';
+            return;
+        }
+        if (productId === 3) {
+            window.location.href = 'category-retail-scales.html';
+            return;
+        }
+        if (productId === 5) {
+            window.location.href = 'retail-software.html';
+            return;
+        }
         window.location.href = `gallery.html?product=${productId}&title=${productTitle}`;
     });
 });
