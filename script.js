@@ -520,16 +520,20 @@ document.querySelectorAll('.btn-show-more').forEach(button => {
             window.location.href = 'category-retail-scales.html';
             return;
         }
+        if (productId === 4) {
+            window.location.href = 'category-customized-software-applications.html';
+            return;
+        }
         if (productId === 5) {
             window.location.href = 'retail-software.html';
             return;
         }
         if (productId === 6) {
-            window.location.href = `gallery.html?product=9&title=${productTitle}`;
+            window.location.href = 'category-weighing-accessories.html';
             return;
         }
         if (productId === 7) {
-            window.location.href = `gallery.html?product=10&title=${productTitle}`;
+            window.location.href = 'category-pos-hardware-accessories.html';
             return;
         }
         window.location.href = `gallery.html?product=${productId}&title=${productTitle}`;
