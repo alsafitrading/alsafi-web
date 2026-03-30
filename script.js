@@ -500,30 +500,6 @@ if (clientsCarousel) {
 }
 
 // ============================================
-// SEO: Structured Data (JSON-LD)
-// ============================================
-const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "AL SAFI GENERAL TRADING LLC",
-    "description": "Leading provider of weighing scales, POS solutions, automation systems, and packaging solutions in UAE and Oman",
-    "url": window.location.origin,
-    "logo": `${window.location.origin}/logo.png`,
-    "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "Customer Service",
-        "areaServed": ["AE", "OM"],
-        "availableLanguage": ["en", "ar"]
-    },
-    "sameAs": []
-};
-
-const script = document.createElement('script');
-script.type = 'application/ld+json';
-script.textContent = JSON.stringify(structuredData);
-document.head.appendChild(script);
-
-// ============================================
 // Product Gallery Navigation
 // ============================================
 // Open gallery page when "Show More" is clicked
