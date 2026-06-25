@@ -248,7 +248,7 @@ function nextSlide() {
 
 function startSlideTimer() {
     if (prefersReducedMotion || carouselSlides.length <= 1) return;
-    slideInterval = setInterval(nextSlide, 6000);
+    slideInterval = setInterval(nextSlide, 3000);
 }
 
 function resetSlideTimer() {
