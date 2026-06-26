@@ -2122,3 +2122,135 @@ img[loading="lazy"] {
         transition: none;
     }
 }
+
+/* Product brochure sections */
+.product-detail-figure--contain img {
+    object-fit: contain;
+    background: var(--color-bg);
+}
+
+.product-brochure {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.product-brochure-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.product-brochure-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin: 1.75rem 0 0.85rem;
+}
+
+.product-brochure-lead {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+    max-width: 52rem;
+}
+
+.product-brochure-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+}
+
+.product-brochure-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.product-brochure-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+}
+
+.product-brochure-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.product-brochure-figure {
+    margin: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.product-brochure-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    padding: 1rem;
+    background: var(--color-bg);
+}
+
+.product-brochure-figure figcaption {
+    padding: 1rem 1.25rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    border-top: 1px solid var(--color-border);
+}
+
+.product-brochure-callout {
+    display: block;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+}
+
+.product-brochure--contact {
+    background: linear-gradient(160deg, var(--color-surface) 0%, #EEF3FB 100%);
+}
+
+.product-brochure-contact {
+    font-style: normal;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+.product-brochure-contact a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .product-brochure {
+        padding: 1.5rem;
+    }
+
+    .product-brochure-gallery {
+        grid-template-columns: 1fr;
+    }
+}
