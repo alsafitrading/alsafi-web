@@ -1,0 +1,12 @@
+# Local source folder — not part of the live website repo
+AL SAFI NEW WEBSITE/
+
+# Video files (GitHub 100 MB limit)
+*.mp4
+*.mov
+*.avi
+
+# Windows / Office temp files
+Thumbs.db
+~$*
+*.tmp
