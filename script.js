@@ -147,7 +147,8 @@ function initReveal() {
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     elements.forEach((el, i) => {
-        el.style.transitionDelay = `${Math.min(i % 4, 3) * 0.08}s`;
+        const delayClass = `reveal-delay-${Math.min(i % 4, 3)}`;
+        if (delayClass !== 'reveal-delay-0') el.classList.add(delayClass);
         observer.observe(el);
     });
 }
@@ -233,7 +234,9 @@ function showNotification(message, type = 'success') {
    Hero carousel
    ============================================ */
 const carouselSlides = document.querySelectorAll('.carousel-slide');
-const indicators = document.querySelectorAll('.indicator');
+const carouselStatus = document.getElementById('carouselStatus');
+const carouselPrev = document.getElementById('carouselPrev');
+const carouselNext = document.getElementById('carouselNext');
 let currentSlide = 0;
 let slideInterval;
 
@@ -252,24 +255,30 @@ function preloadAdjacentSlides(index) {
     loadSlideImage(carouselSlides[(index + 1) % carouselSlides.length]);
 }
 
+function updateCarouselStatus() {
+    if (!carouselStatus || !carouselSlides.length) return;
+    carouselStatus.textContent = `${currentSlide + 1} / ${carouselSlides.length}`;
+}
+
 function goToSlide(index) {
     if (!carouselSlides.length) return;
 
     carouselSlides[currentSlide]?.classList.remove('active');
-    indicators[currentSlide]?.classList.remove('active');
-    indicators[currentSlide]?.setAttribute('aria-selected', 'false');
 
     currentSlide = index;
 
     preloadAdjacentSlides(currentSlide);
 
     carouselSlides[currentSlide]?.classList.add('active');
-    indicators[currentSlide]?.classList.add('active');
-    indicators[currentSlide]?.setAttribute('aria-selected', 'true');
+    updateCarouselStatus();
 }
 
 function nextSlide() {
     goToSlide((currentSlide + 1) % carouselSlides.length);
+}
+
+function prevSlide() {
+    goToSlide((currentSlide - 1 + carouselSlides.length) % carouselSlides.length);
 }
 
 function startSlideTimer() {
@@ -298,12 +307,16 @@ function initCarousel() {
     }
 
     startSlideTimer();
+    updateCarouselStatus();
 
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            goToSlide(index);
-            resetSlideTimer();
-        });
+    carouselPrev?.addEventListener('click', () => {
+        prevSlide();
+        resetSlideTimer();
+    });
+
+    carouselNext?.addEventListener('click', () => {
+        nextSlide();
+        resetSlideTimer();
     });
 }
 

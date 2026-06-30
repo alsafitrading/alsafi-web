@@ -39,7 +39,10 @@
             rel="stylesheet">
     </noscript>
     <link rel="preload" as="image" href="images/floor-scale2.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="styles.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="styles.min.css">
+    </noscript>
     <link rel="icon" type="image/png" href="images/logo.png">
     <script type="application/ld+json">
     {
@@ -168,7 +171,9 @@
                 </div>
                 <div class="hero-visual reveal">
                     <div class="hero-carousel" id="heroCarousel">
-                        <div class="carousel-slide active" style="background-image: url('images/floor-scale2.jpg');">
+                        <div class="carousel-slide active">
+                            <img src="images/floor-scale2.jpg" alt="" class="carousel-slide-img" width="480"
+                                height="576" fetchpriority="high" decoding="async">
                         </div>
                         <div class="carousel-slide" data-bg="images/floor-scale1.jpg"></div>
                         <div class="carousel-slide" data-bg="images/image-3.png"></div>
@@ -176,27 +181,27 @@
                         <div class="carousel-slide" data-bg="images/tank-batching.png"></div>
                         <div class="carousel-slide" data-bg="images/image-8.jpeg"></div>
                         <div class="carousel-slide" data-bg="images/Checkweigher.png"></div>
-                        <div class="carousel-slide"
-                            data-bg="images/Weiging Meachine/4 drum filling machine-2.png"></div>
+                        <div class="carousel-slide" data-bg="images/Weiging Meachine/4 drum filling machine-2.png">
+                        </div>
                         <div class="carousel-slide" data-bg="images/pos-solutions.png"></div>
                         <div class="carousel-slide" data-bg="images/track-barcode.png"></div>
                         <div class="carousel-slide" data-bg="images/image-1.png"></div>
                         <div class="carousel-slide" data-bg="images/slider4.jpeg"></div>
                     </div>
-                    <div class="carousel-indicators" id="carouselIndicators" role="tablist"
-                        aria-label="Hero image carousel">
-                        <button class="indicator active" role="tab" aria-selected="true" aria-label="Slide 1"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 2"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 3"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 4"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 5"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 6"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 7"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 8"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 9"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 10"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 11"></button>
-                        <button class="indicator" role="tab" aria-selected="false" aria-label="Slide 12"></button>
+                    <div class="carousel-controls">
+                        <button type="button" class="carousel-btn" id="carouselPrev" aria-label="Previous image">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <span class="carousel-status" id="carouselStatus" aria-live="polite">1 / 12</span>
+                        <button type="button" class="carousel-btn" id="carouselNext" aria-label="Next image">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
