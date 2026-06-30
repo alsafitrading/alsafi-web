@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /node_modules/
 
-# Submit each sitemap in its matching Google Search Console property
-Sitemap: https://alsafiemirates.com/sitemap.xml
-Sitemap: https://alsafitrading.com/sitemap-alsafitrading.xml
+# Primary domain (Google Search Console)
+Sitemap: https://alsafitrading.com/sitemap.xml
 
+# Secondary domain — submit in alsafiemirates.com Search Console only
+Sitemap: https://alsafiemirates.com/sitemap-alsafiemirates.xml
